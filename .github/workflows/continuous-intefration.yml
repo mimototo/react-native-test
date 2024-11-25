@@ -1,0 +1,30 @@
+name: Continuous Integration
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        shell: bash
+        run: bun install
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Format
+        run: bun run format
+
+      - name: Typecheck
+        run: bun run typecheck
